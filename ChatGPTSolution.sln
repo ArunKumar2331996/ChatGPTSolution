@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "chatGPT6", "..\Test\chatGPT6\chatGPT6.csproj", "{7A10F37D-4130-40C3-BE34-82CEE7F49E7A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGPTwithArun", "..\Test\ChatGPTwithArun\ChatGPTwithArun.csproj", "{8BD846FA-7CB2-43F7-8A32-0456B8A39B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGPTSolution", "ChatGPTSolution\ChatGPTSolution.csproj", "{5C801249-DD5C-4C16-A4D7-843140741C1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A10F37D-4130-40C3-BE34-82CEE7F49E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A10F37D-4130-40C3-BE34-82CEE7F49E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A10F37D-4130-40C3-BE34-82CEE7F49E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A10F37D-4130-40C3-BE34-82CEE7F49E7A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BD846FA-7CB2-43F7-8A32-0456B8A39B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BD846FA-7CB2-43F7-8A32-0456B8A39B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BD846FA-7CB2-43F7-8A32-0456B8A39B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BD846FA-7CB2-43F7-8A32-0456B8A39B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C801249-DD5C-4C16-A4D7-843140741C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C801249-DD5C-4C16-A4D7-843140741C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C801249-DD5C-4C16-A4D7-843140741C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C801249-DD5C-4C16-A4D7-843140741C1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
