@@ -6,8 +6,6 @@ namespace ChatGPTSolution.Models
     {
         [JsonPropertyName("data")] public List<ImageDataResult> Results { get; set; }
 
-        [JsonPropertyName("created")] public int CreatedAt { get; set; }
-
         public class ImageDataResult
         {
             [JsonPropertyName("url")]

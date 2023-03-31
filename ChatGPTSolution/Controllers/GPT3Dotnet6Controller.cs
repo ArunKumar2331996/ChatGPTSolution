@@ -26,5 +26,17 @@ namespace ChatGPTSolution.Controllers
         {
             return await _gptClient.resultSet(input);
         }
+
+        [HttpPost("chatHttpClient")]
+        public async Task<ChatCompletionResponce> GenerateChat(ChatCompletionRequestcs request, CancellationToken token = default)
+        {
+            return await _gptClient.GenerateCompletion(request, token);
+        }
+
+        [HttpPost("AudioHttpClient")]
+        public async Task<AudioCreateresponce> GenerateAudioText(AudioCreaterequest request, CancellationToken token = default)
+        {
+            return await _gptClient.GenerateAudioText(request, token);
+        }
     }
 }

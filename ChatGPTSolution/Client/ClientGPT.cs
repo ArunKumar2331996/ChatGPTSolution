@@ -22,6 +22,23 @@ namespace ChatGPTSolution.Client
                 return Configuration["ImageApiEndpoint"];
             }
         }
+
+        public string chatEndpoint
+        {
+            get {
+                return Configuration["ChatApiEndpoint"];
+            }
+
+        }
+        public string audioEndpoint
+        {
+            get
+            {
+                return Configuration["AudiotranscriptionEndPoint"];
+            }
+
+        }
+        
         public ClientGPT(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,25 +65,74 @@ namespace ChatGPTSolution.Client
                 throw ex;
             }
         }
-        public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel, CancellationToken cancellationToken = default)
+     
+        public async Task<AudioCreateresponce> GenerateAudioText(AudioCreaterequest request, CancellationToken cancellationToken = default)
         {
             try
             {
-                HttpClient _httpClient = new HttpClient();
-                _httpClient.BaseAddress = new Uri(endPoint);
-                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-                _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                HttpClient httpClient = new HttpClient();
+                //httpClient.BaseAddress = new Uri(audioEndpoint);
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                const string fileName = "voice.mp3";
+                var sampleFile = await File.ReadAllBytesAsync($"Client/{fileName}");
 
-                var response = await _httpClient.PostAsJsonAsync(endPoint, imageCreateModel, cancellationToken);
-                var responce = await response.Content.ReadFromJsonAsync<ImageCreateResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException(); ;
-                return responce;
+                var multipartContent = new MultipartFormDataContent
+                {
+                    {new ByteArrayContent(sampleFile), "file", fileName},
+                    {new StringContent("whisper-1"), "model"},
+                    {new StringContent("verbose_json"), "response_format"  }
+                };
+                var res = await httpClient.PostAsync(audioEndpoint, multipartContent, cancellationToken);
+                var result = await res.Content.ReadFromJsonAsync<AudioCreateresponce>(cancellationToken: cancellationToken);
+
+                return result;
             }
             catch (Exception)
             {
 
                 throw;
             }
+        }
 
+        public async Task<ChatCompletionResponce> GenerateCompletion(ChatCompletionRequestcs request, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+                var responce = await httpClient.PostAsJsonAsync(chatEndpoint, request, cancellationToken);
+                var result = await responce.Content.ReadFromJsonAsync<ChatCompletionResponce>(cancellationToken: cancellationToken);
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest request, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+                var responce = await httpClient.PostAsJsonAsync(endPoint, request, cancellationToken);
+                var result = await responce.Content.ReadFromJsonAsync<ImageCreateResponse>(cancellationToken: cancellationToken);
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private async Task<CompletionResult> clientReqAsync(string input)
@@ -93,7 +159,9 @@ namespace ChatGPTSolution.Client
 
     public interface IGptClient
     {
-        Task<List<string>> resultSet(string input);
         Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel, CancellationToken cancellationToken = default);
+        Task<ChatCompletionResponce> GenerateCompletion(ChatCompletionRequestcs request, CancellationToken cancellationToken = default);
+        Task<List<string>> resultSet(string input);
+        Task<AudioCreateresponce> GenerateAudioText(AudioCreaterequest request, CancellationToken cancellationToken = default);
     }
 }
